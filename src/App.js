@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import UIkit from 'uikit'
-import Icons from 'uikit/dist/js/uikit-icons'
 import { Router } from './common/Router'
 import './App.css'
 import cssUikit from '../node_modules/uikit/dist/css/uikit.min.css'

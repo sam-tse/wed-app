@@ -1,5 +1,4 @@
-import React, { Component, StyleSheet } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
 
 export default class Home extends Component {
 
@@ -23,6 +22,7 @@ export default class Home extends Component {
     const weddingDinnerPlace = process.env.REACT_APP_WEDDING_DINNER_PLACE
     const weddingDinnerLocation = process.env.REACT_APP_WEDDING_DINNER_LOCATION
     const weddingDinnerGoogleMapUrl = process.env.REACT_APP_WEDDING_DINNER_GOOGLE_MAP_URL
+    
     let mainImageUrl
     try {
       mainImageUrl = require('../images/my-main.jpg')
