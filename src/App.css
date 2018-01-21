@@ -7,6 +7,36 @@
   height: 80px;
 }
 
+h1, h2, h3 {
+  color: pink !important;
+   font-family: 'Great Vibes' !important;
+}
+
+p {
+  color: pink !important;
+  font-family: 'Arial' !important;
+}
+
+.p1 {
+  font-size: 18px;
+}
+
+.p2 {
+  font-size: 22px;
+}
+
+.p3 {
+  font-size: 28px;
+}
+
+.hero-image {
+  border:1px solid #ccc; padding:3px; background:#fff;
+}
+
+.Logo {
+  background-image: url(/favicon.ico)
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -25,4 +55,15 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.uk-navbar-nav>li.uk-active>a {
+    color: pink !important;
+}
+.uk-button-primary {
+    background-color: pink !important;
+}
+
+.uk-input:active,.uk-input:focus {
+    border-color: pink !important;
 }

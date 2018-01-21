@@ -16,6 +16,12 @@
 .env.test.local
 .env.production.local
 
+# my files
+my-deploy.sh
+my-*.jpg
+my-*.png
+my-*.gif
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

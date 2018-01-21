@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import UIkit from 'uikit'
+import Icons from 'uikit/dist/js/uikit-icons'
+import { Router } from './common/Router'
+import './App.css'
+import cssUikit from '../node_modules/uikit/dist/css/uikit.min.css'
+import cssFontAwesome from '../node_modules/font-awesome/css/font-awesome.min.css'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          2. To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Router/>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
