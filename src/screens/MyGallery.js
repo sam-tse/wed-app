@@ -21,7 +21,7 @@ try {
     { src: require('../images/my-3.jpg'), width: 3, height: 4 },
   ]
 } catch (e) {
-  var photos = [
+  photos = [
     { src: 'http://via.placeholder.com/350x150', width: 4, height: 3 },
     { src: 'http://via.placeholder.com/350x150', width: 4, height: 3 },
     { src: 'http://via.placeholder.com/350x150', width: 4, height: 3 },
@@ -76,13 +76,12 @@ export default class MyGallery extends React.Component {
               }
               let columns = 1
               if (width >= 480) {
-                columns = 2
+                columns = 1
               }
               if (width >= 1024) {
-                columns = 3
+                columns = 1
               }
               return (
-
                 <div ref={measureRef}>
                   <h1 className="uk-heading-line uk-text-center"><span>Gallery</span></h1>
                   <h2 className="uk-text-center">Pre-Wedding Photos are coming in June!</h2>

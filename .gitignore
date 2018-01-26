@@ -16,6 +16,9 @@
 .env.test.local
 .env.production.local
 
+# graphQL
+.graphcoolrc
+
 # my files
 my-deploy.sh
 my-*.jpg

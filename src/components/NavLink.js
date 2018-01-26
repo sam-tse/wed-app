@@ -8,7 +8,7 @@ class NavLink extends React.Component {
     let className = isActive ? 'uk-active' : ''
 
     return (
-      <li className={className} {...this.props}>
+      <li className={className}>
         <a href={this.props.to}>{this.props.name}</a>
       </li>
     )

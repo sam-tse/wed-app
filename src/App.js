@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Router } from './common/Router'
 import './App.css'
+/* eslint-disable no-unused-vars */
 import cssUikit from '../node_modules/uikit/dist/css/uikit.min.css'
 import cssFontAwesome from '../node_modules/font-awesome/css/font-awesome.min.css'
 

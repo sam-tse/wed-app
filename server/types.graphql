@@ -1,0 +1,28 @@
+# The following types define the data model of the example service
+# based on which the GraphQL API is generated
+
+type Invitee @model {
+  id: ID! @isUnique
+  name: String
+  isInfant: Boolean @defaultValue(value: "false")
+
+  # relation
+  invitation: Invitation @relation(name: "InviteeInvitation")
+}
+
+type Invitation @model {
+  id: ID! @isUnique
+  createdAt: DateTime! # optional system field
+  updatedAt: DateTime! # optional system field
+  
+  code: String @isUnique # Invitation Code
+  reception: Boolean
+  dinner: Boolean
+  numberOfAdults: Int @defaultValue(value: 0)
+  numberOfInfants: Int @defaultValue(value: 0)
+  comment: String
+  email: String
+  
+  # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
+  member: [Invitee!]! @relation(name: "InviteeInvitation")
+}
