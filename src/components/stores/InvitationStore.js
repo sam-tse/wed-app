@@ -1,17 +1,52 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed } from 'mobx'
+import { setter, intercept } from 'mobx-decorators'
 
 export class InvitationStore {
 
-  @observable numOfAdults = 0;
+  @setter
+  @observable 
+  numOfAdults = undefined
 
-  // @computed get articles() {
-  //   return this.articlesRegistry.values();
-  // };
+  @setter
+  @observable 
+  maxNumOfAdults = undefined
 
-  @action setNumOfAdults(num) {
-    this.numOfAdults = num;
+  @setter
+  @observable 
+  numOfInfants = undefined
+
+  @setter
+  @observable 
+  maxNumOfInfants = undefined
+
+  @setter
+  @observable 
+  isEnforcedSeating = true
+
+  @setter
+  @observable 
+  isJoiningReception = undefined
+
+  @setter
+  @observable 
+  isJoiningDinner = undefined
+
+  @observable 
+  comment = ""
+
+  @setter
+  formValues = null
+
+  @observable 
+  isValidateForm = true
+
+  isJoingDinnerButtonSelected(value) {
+    return (this.isJoiningDinner===true && value === 'Yes') || (this.isJoiningDinner===false && value === 'No')
   }
 
+  // @computed get articles() {
+  //   return this.articlesRegistry.values()
+  // }
 }
 
-export default new InvitationStore();
+export default new InvitationStore()

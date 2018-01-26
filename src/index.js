@@ -8,6 +8,9 @@ import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-client-preset'
 import { ApolloLink, split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
+import { useStrict } from 'mobx'
+import { Provider } from 'mobx-react'
+import InvitationStore from './components/stores/InvitationStore'
 
 // webfontloader configuration object. *REQUIRED*.
 const config = {
@@ -16,8 +19,17 @@ const config = {
   }
 }
 
+//MobX stores
+const stores = {
+  InvitationStore,
+}
+
+// For easier debugging mobx
+window._____APP_STATE_____ = stores;
+useStrict(true);
+
 const AuthLink = (operation, next) => {
-  const token = process.env.REACT_APP_GRAPHQL_TOKEN //localStorage.getItem('graphcoolToken');
+  const token = process.env.REACT_APP_GRAPHQL_TOKEN //localStorage.getItem('graphcoolToken')
 
   operation.setContext(context => ({
     ...context,
@@ -75,10 +87,12 @@ const client = new ApolloClient({
 })
 
 render(
-  <ApolloProvider client={client}>
-    <WebfontLoader config={config}>
-      <App />
-    </WebfontLoader>
-  </ApolloProvider>,
+  <Provider {...stores}>
+    <ApolloProvider client={client}>
+      <WebfontLoader config={config}>
+        <App />
+      </WebfontLoader>
+    </ApolloProvider>
+  </Provider>,
   document.getElementById('root')
 )

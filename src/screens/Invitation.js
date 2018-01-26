@@ -2,26 +2,13 @@ import React, { Component } from 'react'
 import { Formik } from 'formik'
 import classNames from 'classnames'
 import InvitationMutation from '../components/graphql/InvitationMutation'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 
-const tempMaxAdults = 3
-const isValidate = false
-
-
-@inject('InvitationStore')
+@inject('InvitationStore') @observer
 export default class Invitation extends Component {
-
-  state = {
-    numOfAdults: null
-  }
 
   generateRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
-  buttonClick(values, value) {
-    values.numOfAdults = value
-    this.setState({ numOfAdults: value })
   }
 
   submitted(id) {
@@ -29,29 +16,40 @@ export default class Invitation extends Component {
   }
 
   render() {
-    this.props;
+    const iStore = this.props.InvitationStore
     return (
       <div>
         <Formik
           initialValues={{
             email: '',
             password: '',
-            numOfAdults: this.state.numOfAdults,
+            numOfAdults: iStore.numOfAdults,
           }}
           validate={values => {
-            if (!isValidate) return
+
             let errors = {}
-            // validate email
-            if (!values.email) {
-              errors.email = 'Required'
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-            ) {
-              errors.email = 'Invalid email address'
+            if (!iStore.isValidateForm) return errors
+
+            // *** isJoiningDinner ***
+            if (values.isJoiningDinner === undefined) {
+              errors.isJoiningDinner = 'Please make a selection'
+            } else {
+              iStore.setIsJoiningDinner(values.isJoiningDinner)
             }
-            // validate numOfAdults
-            if (!Number.isInteger(values.numOfAdults) || values.numOfAdults === 0)
-              errors.numOfAdults = 'Please select the number of adults will be attending'
+            // validate email
+            // if (!values.email) {
+            //   errors.email = 'Required'
+            // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            //   errors.email = 'Invalid email address'
+            // }
+
+            // *** numOfAdults ***
+            if (!Number.isInteger(values.numOfAdults) || values.numOfAdults < 0) {
+              errors.numOfAdults = 'Please make a selection'
+            } else {
+              iStore.setNumOfAdults(values.numOfAdults)
+            }
+
             return errors
           }}
           onSubmit={(
@@ -78,11 +76,17 @@ export default class Invitation extends Component {
             errors,
             touched,
             handleChange,
+            setFieldValue,
             handleBlur,
             handleSubmit,
             isSubmitting,
       }) => (
-              <form onSubmit={handleSubmit}>
+              <form className='uk-form' onSubmit={handleSubmit}>
+                { /* TODO: REMOVE THIS */}
+                {'dfd' + iStore.isJoiningDinner}
+                {iStore.numOfAdults}
+                {iStore.setMaxNumOfAdults(4)}
+                { /* TODO: REMOVE THIS */}
                 <fieldset className="uk-fieldset">
                   <div className="uk-margin">
                     <input
@@ -98,32 +102,44 @@ export default class Invitation extends Component {
                   {touched.email && errors.email && <div>{errors.email}</div>}
 
                   <div className="uk-margin">
-                    <input
-                      type="password"
-                      name="password"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                    />
+                    <div className="uk-button-group">
+                      {['Yes', 'No'].map((value, index) => {
+                        let btnClass = classNames(
+                          'uk-button',
+                          'uk-button-default',
+                          { 'uk-button-primary': iStore.isJoingDinnerButtonSelected(value) }
+                        )
+                        return <button key={value} className={btnClass} type="button" onClick={() => setFieldValue('isJoiningDinner', value === 'Yes' ? true : false)}>{value}</button>
+                      })}
+                    </div>
+                    {errors.isJoiningDinner && <div>{errors.isJoiningDinner}</div>}
                   </div>
-                  {touched.password && errors.password && <div>{errors.password}</div>}
 
-                  <div className="uk-button-group">
-                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value, index) => {
-                      let btnClass = classNames(
-                        'uk-button', 
-                        'uk-button-default', 
-                        {'uk-button-primary': this.state.numOfAdults === value }
-                      )
+                  {iStore.isJoiningDinner ?
+                    <div className="uk-margin">
+                      <div className="uk-button-group">
+                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value, index) => {
+                          if (value <= iStore.maxNumOfAdults) {
+                            let btnClass = classNames(
+                              'uk-button',
+                              'uk-button-default',
+                              { 'uk-button-primary': iStore.numOfAdults === value }
+                            )
+                            return <button key={value} className={btnClass} type="button" onClick={() => setFieldValue('numOfAdults', value)}>{value}</button>
+                          }
+                        })}
+                      </div>
+                      {touched.numOfAdults && errors.numOfAdults && <div>{errors.numOfAdults}</div>}
+                    </div>
+                    :
+                    <div />
+                  }
 
-                      return <button key={value} className={btnClass} type="button" onClick={() => this.buttonClick(values, value)}>{value}</button>
-                    })}
+                  <div className="uk-margin">
+                    <textarea className='uk-textarea uk-form-width-large' rows="7" placeholder=""></textarea>
                   </div>
-                  {touched.numOfAdults && errors.numOfAdults && <div>{errors.numOfAdults}</div>}
-                  
-                  <button type="submit" disabled={isSubmitting}>
-                    Submit
-                  </button>
+
+                  <button type="submit" disabled={isSubmitting}>Submit</button>
                 </fieldset>
               </form>
             )}
