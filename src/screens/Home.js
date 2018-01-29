@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
+import { withRouter, Link } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
 
+@inject('InvitationStore', 'InvitationFormStore')
+@withRouter
+@observer
 export default class Home extends Component {
 
   state = {
-    invitationCode: 0
+    invitationCode: undefined
   }
+
   rsvp = () => {
-    alert(this.state.invitationCode)
+    const formStore = this.props.InvitationFormStore
+    const { form: { fields, meta }, onChangeInvitationCode } = formStore
+
+    if (this.state.invitationCode != null) {
+      onChangeInvitationCode('invitationCode', this.state.invitationCode)
+      this.props.history.push('/rsvp')
+    }
   }
+
   setInvitationCode = (e) => {
-    this.setState({ invitationCode: e.target.value })
+    const val = e.target.value
+    if (val != null) {
+      this.setState({ invitationCode: val })
+    }
   }
 
   render() {
@@ -22,14 +38,16 @@ export default class Home extends Component {
     const weddingDinnerPlace = process.env.REACT_APP_WEDDING_DINNER_PLACE
     const weddingDinnerLocation = process.env.REACT_APP_WEDDING_DINNER_LOCATION
     const weddingDinnerGoogleMapUrl = process.env.REACT_APP_WEDDING_DINNER_GOOGLE_MAP_URL
-    
+
+    const iStore = this.props.InvitationStore
+
     let mainImageUrl
     try {
       mainImageUrl = require('../images/my-main.jpg')
     } catch (ex) {
       mainImageUrl = require('../images/mickey-minnie.jpg')
     }
-    
+
     return (
       <div className="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
         <div>
@@ -44,11 +62,13 @@ export default class Home extends Component {
           <fieldset className="uk-fieldset">
             <div className="uk-margin">
               <span className="uk-form-icon" data-uk-icon="icon: user"></span>
-              <input onChange={this.setInvitationCode} className="uk-input uk-form-large uk-text-center"
+              <input
+                value={this.state.invitationCode || ""} /* conditionally set an empty string to force this as an controlled component */
+                onChange={this.setInvitationCode} className="uk-input uk-form-large uk-text-center"
                 type="number" placeholder="Invitation Code" />
             </div>
           </fieldset>
-          <button onClick={this.rsvp} className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom uk-button-large">RSVP</button>
+          <button onClick={this.rsvp} className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom uk-button-large" disabled={this.state.invitationCode == null || iStore.invitationCode === ''}>RSVP</button>
           <h1 className="uk-heading-line uk-text-center"><span>Locations</span></h1>
           <p><b>{weddingDateAlt}</b></p>
           <p>Wedding ceremony will take place at</p>

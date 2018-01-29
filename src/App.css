@@ -8,12 +8,26 @@
 }
 
 h1, h2, h3 {
-  color: pink !important;
+  color:rgb(254, 186, 198) !important;
    font-family: 'Great Vibes' !important;
 }
 
+.myLabel {
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
+form .uk-alert {
+     margin-top: 0px !important; 
+}
+
+.uk-button-default {
+  color: #222;
+  text-transform: none !important;
+}
+
 p {
-  color: pink !important;
+  color:rgb(254, 186, 198) !important;
   font-family: 'Arial' !important;
 }
 
@@ -62,13 +76,29 @@ p {
 }
 
 .uk-navbar-nav>li.uk-active>a {
-    color: pink !important;
+    color:rgb(254, 186, 198) !important;
 }
 .uk-button-primary {
-    background-color: pink !important;
+    background-color: rgb(254, 186, 198) !important;
+}
+
+.uk-button:disabled {
+    background-color: #fafafa !important;
+    color: #999;
+    border-color: rgba(0,0,0,.2);
+    background-image: none;
+    box-shadow: none;
+    text-shadow: 0 1px 0 #fff;
 }
 
 .uk-input:active,.uk-input:focus {
-    border-color: pink !important;
+    border-color:rgb(254, 186, 198) !important;
 }
 
+.my-button-group-button {
+  padding: 0 20px !important;
+}
+
+.uk-form {
+  margin-bottom: 50px;
+}

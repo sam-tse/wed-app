@@ -79,7 +79,7 @@ export default class MyGallery extends React.Component {
                 columns = 1
               }
               if (width >= 1024) {
-                columns = 1
+                columns = 2
               }
               return (
                 <div ref={measureRef}>

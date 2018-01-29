@@ -1,52 +1,71 @@
 import { observable, action, computed } from 'mobx'
 import { setter, intercept } from 'mobx-decorators'
+import toggle from 'mobx-decorators/lib/toggle';
 
-export class InvitationStore {
+export default class InvitationStore {
 
   @setter
-  @observable 
+  @observable
+  invitationCode = undefined
+
+  @setter
+  @observable
+  isInvitationCodeValid = true
+
+  @action toogleIsInvitationCodeValid() {
+    
+    this.setIsInvitationCodeValid(!this.isInvitationCodeValid)
+    console.log(this.isInvitationCodeValid)
+  }
+
+  @setter
+  @observable
   numOfAdults = undefined
 
   @setter
-  @observable 
+  @observable
   maxNumOfAdults = undefined
 
   @setter
-  @observable 
+  @observable
   numOfInfants = undefined
 
   @setter
-  @observable 
+  @observable
   maxNumOfInfants = undefined
 
   @setter
-  @observable 
+  @observable
   isEnforcedSeating = true
 
   @setter
-  @observable 
-  isJoiningReception = undefined
+  @observable
+  isJoiningCeremony = undefined
 
   @setter
-  @observable 
+  @observable
   isJoiningDinner = undefined
 
-  @observable 
+  @observable
   comment = ""
 
   @setter
   formValues = null
 
-  @observable 
+  @observable
   isValidateForm = true
 
   isJoingDinnerButtonSelected(value) {
-    return (this.isJoiningDinner===true && value === 'Yes') || (this.isJoiningDinner===false && value === 'No')
+    return (this.isJoiningDinner === value)
   }
+
+  isJoingCeremonyButtonSelected(value) {
+    return (this.isJoiningCeremony === value)
+  }
+
 
   // @computed get articles() {
   //   return this.articlesRegistry.values()
   // }
 }
 
-export default new InvitationStore()

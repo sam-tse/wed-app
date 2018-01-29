@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 class NavLink extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class NavLink extends React.Component {
 
     return (
       <li className={className}>
-        <a href={this.props.to}>{this.props.name}</a>
+        <Link to={this.props.to}>{this.props.name}</Link>
       </li>
     )
   }

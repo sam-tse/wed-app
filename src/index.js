@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { render } from 'react-dom'
 import './index.css'
 import App from './App'
@@ -10,7 +10,11 @@ import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 import { useStrict } from 'mobx'
 import { Provider } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
 import InvitationStore from './components/stores/InvitationStore'
+import GlobalStore from './components/stores/GlobalStore'
+import FormStore from './components/stores/FormStore'
+import InvitationFormStore from './components/stores/InvitationFormStore'
 
 // webfontloader configuration object. *REQUIRED*.
 const config = {
@@ -21,12 +25,14 @@ const config = {
 
 //MobX stores
 const stores = {
-  InvitationStore,
+  InvitationStore: new InvitationStore(),
+  GlobalStore: new GlobalStore(),
+  InvitationFormStore: new InvitationFormStore()
 }
 
 // For easier debugging mobx
-window._____APP_STATE_____ = stores;
-useStrict(true);
+window._____APP_STATE_____ = stores
+useStrict(true)
 
 const AuthLink = (operation, next) => {
   const token = process.env.REACT_APP_GRAPHQL_TOKEN //localStorage.getItem('graphcoolToken')
@@ -37,15 +43,15 @@ const AuthLink = (operation, next) => {
       ...context.headers,
       Authorization: `Bearer ${token}`,
     },
-  }));
+  }))
 
-  return next(operation);
-};
+  return next(operation)
+}
 
 const httpLink = ApolloLink.from([
   AuthLink,
   new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_HTTP_ENDPOINT }),
-]);
+])
 
 
 // HttpLink to Graphcool
@@ -90,7 +96,12 @@ render(
   <Provider {...stores}>
     <ApolloProvider client={client}>
       <WebfontLoader config={config}>
-        <App />
+        <Fragment>
+          <App />
+          { (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') &&
+            <DevTools />
+          }
+        </Fragment>
       </WebfontLoader>
     </ApolloProvider>
   </Provider>,
