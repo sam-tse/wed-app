@@ -7,7 +7,7 @@
   height: 80px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color:rgb(254, 186, 198) !important;
    font-family: 'Great Vibes' !important;
 }
@@ -97,6 +97,14 @@ p {
 
 .my-button-group-button {
   padding: 0 20px !important;
+}
+
+.uk-button-group {
+  flex-wrap: wrap;
+}
+
+.thankyou h3, .thankyou h4 {
+  margin: 5px 0 5px 0;
 }
 
 .uk-form {

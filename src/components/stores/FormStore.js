@@ -1,12 +1,14 @@
 import { action, toJS } from 'mobx'
 import Validator from 'validatorjs'
+import RootStore from './RootStore'
 
 // Reference: https://medium.com/@KozhukharenkoN/react-form-validation-with-mobx-8ce00233ae27
-export default class FormStore {
+export default class FormStore extends RootStore {
 
   _keysAndLabels = {}
 
   constructor() {
+    super()
     this._parseKeysAndLabels()
   }
 
@@ -16,17 +18,15 @@ export default class FormStore {
     })
   }
 
-   _onFieldChange(key) {
+  _onFieldChange(key) {
     const form = this.form
     const field = this.form.fields[key]
     var validator = new Validator(
       this.getFlattenedValues('value'),
       this.getFlattenedValues('rule')
     )
-    if (field.label) {
-      validator.setAttributeNames(this._keysAndLabels) //use a different attribute name as defined in field.label
-    }
-    form.meta.isValid = validator.passes()
+    validator.setAttributeNames(this._keysAndLabels) //use a different attribute name as defined in field.label
+    this.form.meta.isValid = validator.passes()
     field.error = validator.errors.first(key)
   }
 
@@ -34,7 +34,9 @@ export default class FormStore {
     let data = {}
     let form = toJS(this.form).fields
     Object.keys(form).map(key => {
-      data[key] = form[key][valueKey]
+       if (this.form.fields[key].disabled !== true) {
+        data[key] = form[key][valueKey]
+       }
     })
     return data
   }
@@ -43,6 +45,13 @@ export default class FormStore {
   onFieldChange = (key, value) => {
     this.form.fields[key].value = value
     this._onFieldChange(key)
+    return true
+  }
+
+  @action
+  disableField = (key) => {
+    this.form.fields[key].disabled = true
+    return true
   }
 
   @action

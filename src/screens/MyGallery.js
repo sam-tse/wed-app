@@ -6,17 +6,15 @@ import Measure from 'react-measure'
 try {
   var photos = [
     { src: require('../images/my-6.jpg'), width: 4, height: 3 },
-    { src: require('../images/my-14.jpg'), width: 4, height: 3 },
     { src: require('../images/my-13.jpg'), width: 4, height: 3 },
     { src: require('../images/my-2.gif'), width: 4, height: 3 },
+    { src: require('../images/my-15.jpg'), width: 4, height: 3 },
     { src: require('../images/my-5.jpg'), width: 4, height: 3 },
     { src: require('../images/my-8.jpg'), width: 3, height: 4 },
-    { src: require('../images/my-7.jpg'), width: 3, height: 4 },
     { src: require('../images/my-4.jpg'), width: 3, height: 4 },
+    { src: require('../images/my-14.jpg'), width: 3, height: 4 },
     { src: require('../images/my-9.jpg'), width: 3, height: 4 },
     { src: require('../images/my-11.jpg'), width: 3, height: 4 },
-    { src: require('../images/my-10.jpg'), width: 3, height: 4 },
-    { src: require('../images/my-14.jpg'), width: 3, height: 4 },
     { src: require('../images/my-main.jpg'), width: 4, height: 3 },
     { src: require('../images/my-3.jpg'), width: 3, height: 4 },
   ]

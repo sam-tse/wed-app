@@ -34,12 +34,14 @@ functions:
 permissions:
   - operation: Invitation.read
     authenticated: true
-  - operation: Invitation.create
+  - operation: Invitation.update
     authenticated: true
+    fields: [dinner, ceremony, numberOfAdults, numberOfInfants, comment, isSubmitted]
+    query: updateInvitation.graphql
 
 # Your root tokens used for functions to get full access to the API
 # Read more here:
 # https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o
-# rootTokens:
-  # -eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MTM1MzE0MzEsImNsaWVudElkIjoiY2piNjB4dTZjMGszeTAxMzNpY2I3bjdjYSJ9.9cmQur3czhAXbQ7A_MLJ1IBvN8UmOMTkQJuzHWpxIQ0
+rootTokens:
+  - wed-app-client
 

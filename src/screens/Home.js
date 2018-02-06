@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
-@inject('InvitationStore', 'InvitationFormStore')
+@inject('InvitationFormStore')
 @withRouter
 @observer
 export default class Home extends Component {
@@ -39,7 +39,7 @@ export default class Home extends Component {
     const weddingDinnerLocation = process.env.REACT_APP_WEDDING_DINNER_LOCATION
     const weddingDinnerGoogleMapUrl = process.env.REACT_APP_WEDDING_DINNER_GOOGLE_MAP_URL
 
-    const iStore = this.props.InvitationStore
+    const formStore = this.props.InvitationFormStore
 
     let mainImageUrl
     try {
@@ -58,17 +58,24 @@ export default class Home extends Component {
             <img className="hero-image" src={mainImageUrl} alt="" />
           </div>
           <h1 className="uk-heading-line uk-text-center"><span>Celebrate Together</span></h1>
-          <p>Enter your Invitation Code below and click RSVP</p>
-          <fieldset className="uk-fieldset">
-            <div className="uk-margin">
-              <span className="uk-form-icon" data-uk-icon="icon: user"></span>
-              <input
-                value={this.state.invitationCode || ""} /* conditionally set an empty string to force this as an controlled component */
-                onChange={this.setInvitationCode} className="uk-input uk-form-large uk-text-center"
-                type="number" placeholder="Invitation Code" />
-            </div>
-          </fieldset>
-          <button onClick={this.rsvp} className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom uk-button-large" disabled={this.state.invitationCode == null || iStore.invitationCode === ''}>RSVP</button>
+          {formStore.isInvitationSubmitted === true ?
+            <p>You have already submitted your RSVP response for your Invitation Code <b>{formStore.form.fields.invitationCode.value}</b>. Please <Link to="/contact">contact us</Link> if you have any question or issue.</p>
+            :
+            <React.Fragment>
+              <p>Enter your Invitation Code below and click RSVP</p>
+              <fieldset className="uk-fieldset">
+                <div className="uk-margin">
+                  <span className="uk-form-icon" data-uk-icon="icon: user"></span>
+                  <input
+                    value={this.state.invitationCode || ""} /* conditionally set an empty string to force this as an controlled component */
+                    onChange={this.setInvitationCode} className="uk-input uk-form-large uk-text-center"
+                    type="number" placeholder="Invitation Code" />
+                </div>
+              </fieldset>
+              <button onClick={this.rsvp} className="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom uk-button-large" disabled={this.state.invitationCode == null}>RSVP</button>
+            </React.Fragment>
+          }
+
           <h1 className="uk-heading-line uk-text-center"><span>Locations</span></h1>
           <p><b>{weddingDateAlt}</b></p>
           <p>Wedding ceremony will take place at</p>

@@ -11,10 +11,11 @@ import { getMainDefinition } from 'apollo-utilities'
 import { useStrict } from 'mobx'
 import { Provider } from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
-import InvitationStore from './components/stores/InvitationStore'
 import GlobalStore from './components/stores/GlobalStore'
 import FormStore from './components/stores/FormStore'
 import InvitationFormStore from './components/stores/InvitationFormStore'
+
+export const isRunningInDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
 
 // webfontloader configuration object. *REQUIRED*.
 const config = {
@@ -22,17 +23,6 @@ const config = {
     families: ['Great+Vibes'],
   }
 }
-
-//MobX stores
-const stores = {
-  InvitationStore: new InvitationStore(),
-  GlobalStore: new GlobalStore(),
-  InvitationFormStore: new InvitationFormStore()
-}
-
-// For easier debugging mobx
-window._____APP_STATE_____ = stores
-useStrict(true)
 
 const AuthLink = (operation, next) => {
   const token = process.env.REACT_APP_GRAPHQL_TOKEN //localStorage.getItem('graphcoolToken')
@@ -52,7 +42,6 @@ const httpLink = ApolloLink.from([
   AuthLink,
   new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_HTTP_ENDPOINT }),
 ])
-
 
 // HttpLink to Graphcool
 //const httpLink = new HttpLink({ uri: 'https://api.graph.cool/simple/v1/wed-app' })
@@ -76,7 +65,7 @@ const link = split(
 )
 
 const client = new ApolloClient({
-  link,
+  link: httpLink, // could use variable 'link' if both subscription and httpLink are needed
   cache: new InMemoryCache(),
   defaultOptions: {
     query: {
@@ -92,13 +81,24 @@ const client = new ApolloClient({
   }
 })
 
+//MobX stores
+const stores = {
+  GlobalStore: new GlobalStore(),
+  InvitationFormStore: new InvitationFormStore(client)
+}
+
+if (isRunningInDev) {
+  window.stores = stores // For easier debugging mobx
+}
+useStrict(true)
+
 render(
   <Provider {...stores}>
     <ApolloProvider client={client}>
       <WebfontLoader config={config}>
         <Fragment>
           <App />
-          { (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') &&
+          {isRunningInDev &&
             <DevTools />
           }
         </Fragment>

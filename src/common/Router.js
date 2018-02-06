@@ -9,6 +9,7 @@ import Invitation from '../screens/Invitation'
 import MyGallery from '../screens/MyGallery'
 import Contact from '../screens/Contact'
 import AllInvitations from '../screens/AllInvitations'
+import ThankYou from '../screens/ThankYou'
 
 export const Router = (props) => (
   <BrowserRouter>
@@ -16,10 +17,10 @@ export const Router = (props) => (
       <nav className="uk-navbar-container">
         <div className="uk-navbar-left">
           <ul className="uk-navbar-nav">
-            <NavLink to="/" name="OW" />
-            <NavLink to="/gallery" name="Ga" />
-            <NavLink to="/rsvp" name="RS" />
-            <NavLink to="/contact" name="Con" />
+            <NavLink to="/" name="Our Wedding" />
+            <NavLink to="/gallery" name="Gallery" />
+            <NavLink to="/rsvp" name="RSVP" />
+            <NavLink to="/contact" name="Contact" />
           </ul>
         </div>
       </nav>
@@ -28,6 +29,7 @@ export const Router = (props) => (
       <Route path="/rsvp" component={Invitation} />
       <Route path="/allInvitations" component={AllInvitations} />
       <Route path="/contact" component={Contact} />
+      <Route path="/thankyou" component={ThankYou} />
     </div>
   </BrowserRouter>
 )

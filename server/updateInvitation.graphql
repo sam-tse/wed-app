@@ -1,0 +1,5 @@
+  mutation updateInvitation($id:ID!, $dinner:Boolean!, $ceremony:Boolean!, $numberOfAdults:Int, $numberOfInfants:Int, $comment:String, $isSubmitted:Boolean!) {
+    updateInvitation(id:$id, dinner:$dinner, ceremony:$ceremony, numberOfAdults: $numberOfAdults,  numberOfInfants: $numberOfInfants, comment:$comment, isSubmitted:$isSubmitted) {
+      id
+    }
+  }

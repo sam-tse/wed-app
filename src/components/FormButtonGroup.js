@@ -18,7 +18,9 @@ const FormButtonGroup = observer((props) => {
             'my-button-group-button',
             { 'uk-button-primary': field.value === obj.id }
           )
-          return <button {...rest} key={obj.id} className={btnClass} type='button' onClick={() => onChange(name, obj.id)}>{obj.label != null ? obj.label : obj.id}</button>
+          return (
+            <button {...rest} key={obj.id} className={btnClass} type='button' onClick={() => onChange(name, obj.id)}>{obj.label != null ? obj.label : obj.id}</button>
+          )
         })}
       </div>
       {error &&
