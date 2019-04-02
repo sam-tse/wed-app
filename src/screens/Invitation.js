@@ -21,6 +21,12 @@ export default class Invitation extends Component {
     }
   }
 
+  initializeSingleAdult(formStore) {
+    if (formStore.queryInvitationData.maxNumberOfAdults === 1) {
+      formStore.onFieldChange('numOfAdults', 1)
+    }
+  }
+
   render() {
     const formStore = this.props.InvitationFormStore
     const { form: { fields, meta }, onFieldChange, onChangeInvitationCode } = formStore
@@ -59,6 +65,7 @@ export default class Invitation extends Component {
 
           {formStore.isInvitationCodeValid === true && formStore.isInvitationSubmitted === false &&
             <Fragment>
+              {this.initializeSingleAdult(formStore)}
               <p>Your Invitation Code: {fields.invitationCode.value}</p>
 
               <h2 className="uk-text-center">Dear {formStore.queryInvitationData.name}</h2>
@@ -87,7 +94,7 @@ export default class Invitation extends Component {
 
                 <Fragment>
                   <div className='uk-form-row'>
-                    <p className='myLabel'>Number of Adults</p>
+                    <p className='myLabel'>Number of Adults & Children</p>
                     <FormButtonGroup
                       name='numOfAdults'
                       field={fields.numOfAdults}
@@ -140,6 +147,5 @@ export default class Invitation extends Component {
       </div>
     )
   }
-
 }
 

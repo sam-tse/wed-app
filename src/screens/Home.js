@@ -33,6 +33,7 @@ export default class Home extends Component {
     const weddingDate = process.env.REACT_APP_WEDDING_DATE
     const weddingDateAlt = process.env.REACT_APP_WEDDING_DATE_ALT
     const weddingReceptionPlace = process.env.REACT_APP_WEDDING_RECEPTION_PLACE
+    const weddingReceptionTime = process.env.REACT_APP_WEDDING_RECEPTION_TIME
     const weddingReceptionLocation = process.env.REACT_APP_WEDDING_RECEPTION_LOCATION
     const weddingReceptionGoogleMapUrl = process.env.REACT_APP_WEDDING_RECEPTION_GOOGLE_MAP_URL
     const weddingDinnerPlace = process.env.REACT_APP_WEDDING_DINNER_PLACE
@@ -81,12 +82,13 @@ export default class Home extends Component {
           <p>Wedding ceremony will take place at</p>
           <p className="p1"><b>{weddingReceptionPlace}</b></p>
           <p>{weddingReceptionLocation}</p>
+          <p>{weddingReceptionTime}</p>
           <p><button onClick={() => window.open(weddingReceptionGoogleMapUrl)} className="uk-button uk-button-primary uk-margin-small-bottom">View Map</button></p>
           <hr className="uk-divider-small" />
           <p>Dinner reception at</p>
           <p className="p1"><b>{weddingDinnerPlace}</b></p>
           <p>{weddingDinnerLocation}</p>
-          <p>Reception at 6:00 pm<br />Dinner at XYZ pm</p>
+          <p>Reception at 6:00 pm<br />Dinner at 7:30 pm</p>
           <p><button onClick={() => window.open(weddingDinnerGoogleMapUrl)} className="uk-button uk-button-primary uk-margin-small-bottom">View Map</button></p>
         </div>
       </div>

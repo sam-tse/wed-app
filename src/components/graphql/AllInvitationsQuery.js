@@ -8,9 +8,17 @@ const QUERY = gql`
    allInvitations(orderBy: createdAt_DESC) {
     id
     code
-    member {
-      name
-    }
+    name
+    maxNumberOfAdults
+    maxNumberOfInfants
+    ceremony
+    dinner
+    numberOfAdults
+    numberOfInfants
+    isSubmitted
+    comment
+    belongTo
+    table
   }
 }`
 

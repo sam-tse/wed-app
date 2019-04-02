@@ -25,7 +25,9 @@ type Invitation @model {
   comment: String
   email: String
   name: String
-  isSubmitted: Boolean! @defaultValue(value: "false") 
+  isSubmitted: Boolean! @defaultValue(value: "false")
+  belongTo: String
+  table: String
 
   # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
   # member: [Invitee!]! @relation(name: "InviteeInvitation")

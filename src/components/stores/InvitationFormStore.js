@@ -13,8 +13,8 @@ export default class InvitationFormStore extends FormStore {
     if (isRunningInDev === true) {
       autorun(() => {
         //TODO: for debugging only
-        console.log(JSON.stringify(this.form))
-        console.log(JSON.stringify(this.queryInvitationData))
+        // console.log(JSON.stringify(this.form))
+        // console.log(JSON.stringify(this.queryInvitationData))
       })
     }
 

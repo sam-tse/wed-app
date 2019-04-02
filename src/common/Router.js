@@ -9,6 +9,7 @@ import Invitation from '../screens/Invitation'
 import MyGallery from '../screens/MyGallery'
 import Contact from '../screens/Contact'
 import AllInvitations from '../screens/AllInvitations'
+import Tables from '../screens/Tables'
 import ThankYou from '../screens/ThankYou'
 
 export const Router = (props) => (
@@ -28,6 +29,7 @@ export const Router = (props) => (
       <Route path="/gallery" component={MyGallery} />
       <Route path="/rsvp" component={Invitation} />
       <Route path="/allInvitations" component={AllInvitations} />
+      <Route path="/tables" component={Tables} />
       <Route path="/contact" component={Contact} />
       <Route path="/thankyou" component={ThankYou} />
     </div>

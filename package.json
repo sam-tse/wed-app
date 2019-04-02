@@ -13,6 +13,7 @@
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
     "jsx-html-class": "^1.0.3",
+    "lodash": "^4.17.10",
     "mobx": "^3.4.1",
     "mobx-apollo": "^0.0.18",
     "mobx-decorators": "^2.3.3",
@@ -26,6 +27,7 @@
     "react-measure": "^2.0.2",
     "react-photo-gallery": "^6.0.22",
     "react-router-dom": "^4.2.2",
+    "react-table": "^6.8.0",
     "uikit": "^3.0.0-beta.38",
     "validatorjs": "^3.14.2",
     "webpack": "^3.10.0"

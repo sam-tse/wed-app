@@ -8,7 +8,7 @@
 }
 
 h1, h2, h3, h4 {
-  color:rgb(254, 186, 198) !important;
+  color:rgb(248, 172, 186) !important;
    font-family: 'Great Vibes' !important;
 }
 
@@ -27,7 +27,7 @@ form .uk-alert {
 }
 
 p {
-  color:rgb(254, 186, 198) !important;
+  color:rgb(248, 172, 186) !important;
   font-family: 'Arial' !important;
 }
 
@@ -108,5 +108,10 @@ p {
 }
 
 .uk-form {
+  margin-bottom: 50px;
+}
+
+.ReactTable {
+  margin-top: 20px;
   margin-bottom: 50px;
 }
